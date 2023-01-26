@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# Displays the content of the file /etc/passwd
-while IFS=: read file
-do
-	echo "$file" | cut -d ":" -f 1,3,6
+# This script displays the following informations in /etc/passwd:
+#+ username
+#+ user id
+#+ Home directory path for the user
+
+while read -r elm; do
+echo "$elm" | cut -d: -f1,3,6
 done < /etc/passwd
