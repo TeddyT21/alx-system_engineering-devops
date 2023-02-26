@@ -1,8 +1,8 @@
 # Distributed Web Infrastructure
 
-![Image of a distributed web infrastructure](1-distributed_web_infrastructure.jpg)
+![Image of a distributed web infrastructure](distributed_web_infrastructure.png)
 
-[Visit Board](https://miro.com/app/board/uXjVOfI6jcU=/)
+
 
 ## Description
 
