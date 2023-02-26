@@ -1,6 +1,6 @@
 # Distributed Web Infrastructure
 
-![Image of a distributed web infrastructure](distributed_web_infrastructure.png)
+![Image of a distributed web infrastructure](Distributed_web_infrastructure.png)
 
 
 
