@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
-# This script installs a nginx web server
+#install nginx and create index.html file with Hello World text
 
-apt-get update
-apt-get install -y nginx
-sudo ufw allow 22
-sudo ufw allow 80
-sudo ufw --force enable
-sudo ufw status
-systemctl status nginx
-echo "Hello World!" > /var/www/html/index.html 
+sudo apt update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+sudo echo "Hello World!" | sudo tee file /var/www/html/index.html
 sudo service nginx restart
