@@ -15,7 +15,7 @@ echo -e "\n${blue}Setting up some minor stuff.${reset}\n"
 service nginx start
 
 # allowing nginx on firewall
-ufw allow 'Nginx HTTP'
+# ufw allow 'Nginx HTTP'
 
 # Give the user ownership to website files for easy editing
 chown -R "$USER":"$USER" /var/www/html
