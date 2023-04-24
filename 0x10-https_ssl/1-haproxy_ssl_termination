@@ -53,8 +53,8 @@ frontend load_balancer
 backend web_server                                                                                                                                       
         balance roundrobin                                                                                                                               
         redirect scheme https code 301 if !{ ssl_fc }                                                                                                    
-        server 131224-web-01 100.26.177.50:80 check                                                                                                      
-        server 131224-web-02 34.204.81.253:80 check                                                                                                       
+        server 131224-web-01 107.23.103.44:80 check                                                                                                      
+        server 131224-web-02 52.91.150.151:80 check                                                                                                       
                                                                                                                                                          
 backend letsencrypt-backend                                                                                                                              
-        server letsencrypt 100.26.224.105:54321
+        server letsencrypt 54.173.83.170:54321
