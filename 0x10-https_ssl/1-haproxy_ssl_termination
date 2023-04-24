@@ -42,12 +42,12 @@ frontend http
         http-request set-header X-Forwarded-Proto http
         default_backend web-backend
 
-frontend www-https
-        bind *:443 ssl crt /etc/haproxy/ssl/www.luisch.tech.pem
+frontend teddyt21-https
+        bind *:443 ssl crt /etc/haproxy/ssl/www.teddyt21.tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend web-backend
 
-backend web-backend
+backend teddyt21-backend
         balance roundrobin
         redirect scheme https if !{ ssl_fc }
         server 131224-web-01 107.23.103.44:80 check
