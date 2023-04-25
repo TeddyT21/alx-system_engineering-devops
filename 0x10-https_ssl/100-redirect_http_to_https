@@ -36,10 +36,10 @@ defaults
 listen	balancer
 	# frontend config settings
 	bind :80
-	bind *:443 ssl crt /etc/letsencrypt/live/www.ruthmarcuss.tech/fullchain.pem
+	bind *:443 ssl crt /etc/letsencrypt/live/www.teddyt21.tech/fullchain.pem
     http-request redirect scheme https code 301 unless { ssl_fc }
 
 	# backend config settings
 	balance roundrobin
-	server 131224-web-01 100.26.177.50:80 check
-  server 131224-web-02 34.204.81.253:80 check 
+	server 131224-web-01 107.23.103.44:80 check
+        server 131224-web-02 52.91.150.151:80 check 
