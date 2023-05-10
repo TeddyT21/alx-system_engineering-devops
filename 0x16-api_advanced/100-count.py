@@ -1,54 +1,46 @@
 #!/usr/bin/python3
-"""Function to count words in all hot posts of a given Reddit subreddit."""
+"""This script defines the function count_words
+"""
+import operator
+import re
 import requests
+headers = {'User-Agent': 'Godfather'}
 
 
-def count_words(subreddit, word_list, instances={}, after="", count=0):
-    """Prints counts of given words found in hot posts of a given subreddit.
+def count_words(subreddit, word_list, after='null'):
+    """recursive function that queries the Reddit API, parses the title of all
+    hot articles, and prints a sorted count of given keywords
+    (case-insensitive, delimited by spaces. Javascript should count as
+    javascript, but java should not)
     Args:
-        subreddit (str): The subreddit to search.
-        word_list (list): The list of words to search for in post titles.
-        instances (obj): Key/value pairs of words/counts.
-        after (str): The parameter for the next page of the API results.
-        count (int): The parameter of results matched thus far.
+        subreddit ([str]): subreddit to get
+        word_list ([dict]): word list to find in every title
+        after (str, optional): after parameter. Defaults to 'null'.
     """
-    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
-    headers = {
-        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
-    }
-    params = {
-        "after": after,
-        "count": count,
-        "limit": 100
-    }
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
-    try:
-        results = response.json()
-        if response.status_code == 404:
-            raise Exception
-    except Exception:
-        print("")
-        return
-
-    results = results.get("data")
-    after = results.get("after")
-    count += results.get("dist")
-    for c in results.get("children"):
-        title = c.get("data").get("title").lower().split()
-        for word in word_list:
-            if word.lower() in title:
-                times = len([t for t in title if t == word.lower()])
-                if instances.get(word) is None:
-                    instances[word] = times
-                else:
-                    instances[word] += times
-
+    if after is 'null':
+        word_list = list(map(lambda word: word.lower(), word_list))
+        word_list.sort()
+        word_list = {key: 0 for key in word_list}
     if after is None:
-        if len(instances) == 0:
-            print("")
-            return
-        instances = sorted(instances.items(), key=lambda kv: (-kv[1], kv[0]))
-        [print("{}: {}".format(k, v)) for k, v in instances]
+        word_list = sorted(
+            word_list.items(), key=operator.itemgetter(1), reverse=True)
+        for i in range(len(word_list)):
+            key, value = word_list[i]
+            if value:
+                print('{}: {}'.format(key, value))
     else:
-        count_words(subreddit, word_list, instances, after, count)
+        try:
+            data = requests.get(
+                'https://www.reddit.com/r/{}/hot.json?limit=100&after={}'
+                .format(
+                    subreddit, after), headers=headers).json().get('data')
+            after = data.get('after')
+            for topic in data.get('children'):
+                title = topic.get('data').get('title')
+                for word in word_list:
+                    find = re.findall(r'\b{}\b'.format(word), title, re.I)
+                    if find:
+                        word_list[word] += len(find)
+            count_words(subreddit, word_list, after)
+        except:
+            print()
