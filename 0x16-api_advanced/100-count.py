@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """ Count it! """
 
 from requests import get
