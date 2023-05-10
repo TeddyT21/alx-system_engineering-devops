@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Count it! """
+
 from requests import get
 
 REDDIT = "https://www.reddit.com/"
